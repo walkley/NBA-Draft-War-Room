@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NBA 选秀作战室</title>
+<script src="data.js"></script>
+<script src="boss.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif; background: #0b0f17; color: #e6e9ef; }
+  header { padding: 20px; border-bottom: 1px solid #1f2937; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 22px; }
+  header .tag { font-size: 13px; color: #9ca3af; margin-top: 4px; }
+  .budget { min-width: 260px; }
+  .budget .label { font-size: 13px; color: #9ca3af; display: flex; justify-content: space-between; }
+  .budget .bar { height: 8px; background: #1f2937; border-radius: 4px; margin-top: 6px; overflow: hidden; }
+  .budget .fill { height: 100%; background: #22c55e; transition: width .3s; }
+  .budget .fill.over { background: #ef4444; }
+  nav { display: flex; gap: 4px; padding: 0 20px; border-bottom: 1px solid #1f2937; overflow-x: auto; }
+  nav button { background: none; border: none; color: #9ca3af; padding: 14px 16px; font-size: 15px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+  nav button.on { color: #fbbf24; border-bottom-color: #fbbf24; }
+  main { padding: 20px; max-width: 1200px; }
+  .card { background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+  .player { display: flex; gap: 12px; align-items: center; }
+  .player img { width: 64px; height: 47px; object-fit: cover; border-radius: 6px; background: #1f2937; }
+  .player .name { font-weight: 600; }
+  .sub { font-size: 12px; color: #9ca3af; }
+  .score { font-size: 24px; font-weight: 700; color: #fbbf24; margin-left: auto; }
+  .body { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #1f2937; color: #d1d5db; }
+  .chip.up { background: #14532d; color: #86efac; }
+  .chip.star { background: #78350f; color: #fcd34d; }
+  .chip.down { background: #7f1d1d; color: #fca5a5; }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .filters button { background: #1f2937; color: #d1d5db; border: 1px solid #374151; border-radius: 14px; padding: 4px 12px; cursor: pointer; font-size: 13px; }
+  .filters button.on { background: #fbbf24; color: #111; border-color: #fbbf24; }
+  .row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+  .btn { background: #fbbf24; color: #111; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+  .btn.ghost { background: transparent; color: #e6e9ef; border: 1px solid #374151; }
+  .reason { font-size: 13px; color: #d1d5db; margin-top: 8px; line-height: 1.6; background: #0b0f17; border-left: 3px solid #fbbf24; padding: 6px 10px; }
+  h2 { font-size: 18px; margin-bottom: 12px; }
+  .hint { color: #9ca3af; font-size: 13px; margin-bottom: 14px; line-height: 1.6; }
+  .verdict { font-size: 20px; line-height: 1.8; }
+  .verdict b { color: #fbbf24; }
+  .warn { color: #f87171; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #1f2937; }
+  th { color: #9ca3af; font-weight: 500; }
+  .split { display: grid; grid-template-columns: minmax(280px, 1fr) 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 720px) { .split { grid-template-columns: 1fr; } }
+  .ai { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 14px; line-height: 1.7; }
+  .ai::before { content: "分身建议"; display: block; font-size: 12px; color: #fbbf24; margin-bottom: 4px; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: #9ca3af; margin-top: 6px; justify-content: center; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1 id="title"></h1>
+    <div class="tag" id="tag"></div>
+  </div>
+  <div class="budget">
+    <div class="label"><span>薪资预算（模拟值）</span><span id="budgetText"></span></div>
+    <div class="bar"><div class="fill" id="budgetFill"></div></div>
+  </div>
+</header>
+
+<nav>
+  <button data-tab="home" class="on">老板首页</button>
+  <button data-tab="pool">人才库</button>
+  <button data-tab="pick">选人台</button>
+  <button data-tab="report">阵容报告</button>
+</nav>
+
+<main id="main"></main>
+
+<script>
+const BUDGET = 100, ROSTER = 8;
+const DIM_KEYS = Object.keys(DIMS);
+
+// 老板配置和首页由 boss.js 提供（现场开发的内容），缺失时显示占位
+const BOSS = window.BOSS || { team: "我的球队", style: "待定", quote: ["待定"], w: { score: 1 }, big: {}, cap: 99 };
+
+let tab = "home", roster = [], filter = "全部";
+const byId = id => PLAYERS.find(p => p.id === id);
+const prof = () => BOSS;
+const score = p => {
+  const base = Object.entries(prof().w).reduce((s, [k, w]) => s + p.pr[k] * w, 0);
+  return Math.max(0, Math.min(100, Math.round(base + (prof().big[p.big] || 0))));
+};
+const spent = () => roster.reduce((s, id) => s + byId(id).c, 0);
+
+// 按老板风格推荐：先按评分选两名核心（满足 core 条件），再按评分补齐阵容；
+// 受单人薪资上限约束，排除 exclude 命中的球员，并给剩余名额留出最低薪资
+const isCore = p => typeof prof().core === "function" ? !!prof().core(p) : true;
+const excluded = p => typeof prof().exclude === "function" && !!prof().exclude(p);
+function recommend() {
+  const list = PLAYERS.filter(p => p.c <= prof().cap && !excluded(p)).sort((a, b) => score(b) - score(a));
+  const pick = []; let money = 0;
+  const tryAdd = p => {
+    if (pick.length >= ROSTER || pick.includes(p.id)) return;
+    if (money + p.c + (ROSTER - pick.length - 1) * 4 <= BUDGET) { pick.push(p.id); money += p.c; }
+  };
+  for (const p of list.filter(isCore)) { if (pick.length >= 2) break; tryAdd(p); }
+  for (const p of list) tryAdd(p);
+  return pick;
+}
+
+function radar(series, size) {
+  const c = size / 2, r = c - (size > 150 ? 40 : 16), n = DIM_KEYS.length;
+  const pt = (i, v) => {
+    const a = -Math.PI / 2 + i * 2 * Math.PI / n;
+    return [c + Math.cos(a) * r * v / 100, c + Math.sin(a) * r * v / 100];
+  };
+  const ring = v => DIM_KEYS.map((_, i) => pt(i, v).join(",")).join(" ");
+  let svg = `<svg style="overflow:visible" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`;
+  for (const v of [25, 50, 75, 100]) svg += `<polygon points="${ring(v)}" fill="none" stroke="#1f2937"/>`;
+  DIM_KEYS.forEach((k, i) => {
+    const [x, y] = pt(i, 100);
+    svg += `<line x1="${c}" y1="${c}" x2="${x}" y2="${y}" stroke="#1f2937"/>`;
+    const [lx, ly] = pt(i, size > 150 ? 118 : 124);
+    svg += `<text x="${lx}" y="${ly}" fill="#9ca3af" font-size="${size > 150 ? 13 : 9}" text-anchor="middle" dominant-baseline="middle">${DIMS[k]}</text>`;
+  });
+  for (const s of series) {
+    svg += `<polygon points="${DIM_KEYS.map((k, i) => pt(i, s.v[k]).join(",")).join(" ")}" fill="${s.color}" fill-opacity=".25" stroke="${s.color}" stroke-width="2"/>`;
+  }
+  return svg + "</svg>";
+}
+
+function chips(p) {
+  const cls = p.big === "季后赛更强" ? "up" : p.big === "季后赛下滑" ? "down" : "";
+  return `<div class="chips">${p.fame ? `<span class="chip star">${p.fame}</span>` : ""}<span class="chip">${p.role}</span>
+    <span class="chip ${cls}">${p.big}</span>${has(p.yr) && p.yr <= 2 ? `<span class="chip">${p.yr === 1 ? "新秀" : "第 2 季"}</span>` : ""}</div>`;
+}
+
+function reason(p) {
+  const w = prof().w;
+  const top = Object.keys(w).sort((a, b) => p.pr[b] * w[b] - p.pr[a] * w[a])[0];
+  let s = `${DIMS[top]}超过联盟 ${Math.min(99, p.pr[top])}% 的球员`;
+  if (prof().big[p.big] > 0) s += `，${p.big}`;
+  return `${s}。按你的评分为 ${score(p)} 分。`;
+}
+
+// 可选字段为空时不输出该段；无中文名时回退英文名
+const has = v => v != null && v !== "";
+const name = p => has(p.n) ? p.n : (p.en || "");
+const subLine = p => [has(p.en) && p.en !== name(p) ? p.en : "", p.t, has(p.age) ? `${p.age} 岁` : ""].filter(Boolean).join(" · ");
+
+function playerCard(p, withReason) {
+  const inR = roster.includes(p.id);
+  return `<div class="card">
+    <div class="player"><img src="${p.img}" loading="lazy">
+      <div><div class="name">${name(p)}</div><div class="sub">${subLine(p)}</div><div class="sub">${p.pts != null && p.pts !== "" ? `场均 ${p.pts} 分 · ` : ""}薪资 ${p.c}（模拟）</div></div>
+      <div class="score">${score(p)}</div></div>
+    <div class="body">${radar([{ v: p.pr, color: "#60a5fa" }], 130)}${chips(p)}</div>
+    ${withReason ? `<div class="reason">${reason(p)}</div>` : ""}
+    <div class="row"><span class="sub">分身评分 ${score(p)}</span>
+      <button class="btn ${inR ? "ghost" : ""}" onclick="toggle(${p.id})">${inR ? "移出阵容" : "选入阵容"}</button></div>
+  </div>`;
+}
+
+function toggle(id) {
+  roster = roster.includes(id) ? roster.filter(x => x !== id) : [...roster, id];
+  render();
+}
+
+const team = () => roster.map(byId);
+const teamProfile = () => Object.fromEntries(DIM_KEYS.map(k =>
+  [k, roster.length ? Math.round(team().reduce((s, p) => s + p.pr[k], 0) / roster.length) : 0]));
+const gaps = () => { const t = teamProfile(); return DIM_KEYS.filter(k => t[k] < 45).map(k => DIMS[k]); };
+const LEAGUE = Object.fromEntries(DIM_KEYS.map(k => [k, 50]));
+const count = (key, val) => team().filter(p => p[key] === val).length;
+
+function status() {
+  const over = spent() - BUDGET, g = gaps();
+  if (over > 0) return `<span class="warn">当前超出预算 ${over} 点，需要调整。</span>`;
+  if (g.length) return `<span class="warn">主要短板：${g.join("、")}。</span>`;
+  return "六项能力均无明显短板。";
+}
+
+const VIEWS = {
+  home() {
+    if (!roster.length) return `<div class="card">阵容为空，请到选人台选人。</div>`;
+    if (typeof window.renderHome !== "function") return `<div class="card">首页尚未开发。</div>`;
+    return window.renderHome(CTX);
+  },
+  pool() {
+    const opts = ["全部", "全明星", "前两季", "外线持球", "外线空间", "内线进攻", "内线接应", "季后赛更强"];
+    const list = PLAYERS.filter(p => filter === "全部" || p.role === filter || p.big === filter || p.fame === filter || (filter === "前两季" && p.yr <= 2))
+      .sort((a, b) => score(b) - score(a)).slice(0, 24);
+    return `<h2>人才库</h2>
+      <div class="hint">评分公式来自访谈：${Object.entries(prof().w).map(([k, v]) => `${DIMS[k]} ${Math.round(v * 100)}%`).join(" + ")}
+        ${Object.entries(prof().big).map(([k, v]) => `，${k} ${v > 0 ? "+" : ""}${v}`).join("")}。共 ${PLAYERS.length} 人，显示前 24。</div>
+      <div class="filters">${opts.map(o => `<button class="${o === filter ? "on" : ""}" onclick="filter='${o}';render()">${o}</button>`).join("")}</div>
+      <div class="grid">${list.map(p => playerCard(p, false)).join("")}</div>`;
+  },
+  pick() {
+    const rs = team(), over = spent() - BUDGET, g = gaps();
+    const weakest = rs.slice().sort((a, b) => score(a) - score(b))[0];
+    const advice = over > 0 ? `超出预算 ${over} 点。按你「${prof().quote[1]}」的原则，建议先移出评分最低的 ${name(weakest)}。`
+      : g.length ? `当前阵容${g.join("、")}偏弱，可到人才库补充这方面的球员。`
+      : `阵容 ${rs.length}/${ROSTER} 人，预算和六项能力都在合理范围内。`;
+    return `<div class="ai">${advice}</div>
+      <h2>当前阵容（${rs.length}/${ROSTER}）</h2>
+      <div class="grid">${rs.map(p => playerCard(p, true)).join("")}</div>
+      <div class="row" style="justify-content:flex-start;gap:8px;margin-top:16px">
+        <button class="btn" onclick="roster=recommend();render()">按我的风格重新推荐</button>
+        <button class="btn ghost" onclick="roster=[];render()">清空阵容</button></div>`;
+  },
+  report() {
+    const t = teamProfile();
+    return `<h2>阵容报告</h2>
+      <div class="split">
+        <div class="card" style="text-align:center">${radar([{ v: LEAGUE, color: "#6b7280" }, { v: t, color: "#fbbf24" }], 320)}
+          <div class="legend"><span><i style="background:#fbbf24"></i>我的阵容</span><span><i style="background:#6b7280"></i>联盟平均</span></div></div>
+        <div class="card"><table>
+          <tr><th>能力</th><th>阵容平均</th><th>判断</th></tr>
+          ${DIM_KEYS.map(k => `<tr><td>${DIMS[k]}</td><td>${t[k]}</td><td class="${t[k] < 45 ? "warn" : ""}">${t[k] >= 70 ? "优势" : t[k] < 45 ? "短板" : "持平"}</td></tr>`).join("")}
+          <tr><td>季后赛更强</td><td>${count("big", "季后赛更强")} 人</td><td></td></tr>
+          <tr><td>季后赛下滑</td><td>${count("big", "季后赛下滑")} 人</td><td class="${count("big", "季后赛下滑") ? "warn" : ""}">${count("big", "季后赛下滑") ? "有风险" : ""}</td></tr>
+        </table></div>
+      </div>`;
+  }
+};
+
+// boss.js 的 renderHome(ctx) 可以使用的数据和工具
+const CTX = {
+  get roster() { return team().sort((a, b) => score(b) - score(a)); },
+  get profile() { return teamProfile(); },
+  get spent() { return spent(); },
+  // 核心：老板设了 core 条件时，取阵容中满足条件、评分最高的两人（与 recommend() 选核心同一口径，
+  // 推荐阵容下即为 recommend() 选出的两名核心）；未设条件或无人满足时为空数组
+  get core() { return typeof prof().core === "function" ? team().filter(isCore).sort((a, b) => score(b) - score(a)).slice(0, 2) : []; },
+  BUDGET, ROSTER, DIMS, DIM_KEYS, LEAGUE, PLAYERS,
+  score, reason, radar, playerCard, status, gaps, count
+};
+
+function render() {
+  document.getElementById("title").textContent = `${prof().team} · NBA 选秀作战室`;
+  document.getElementById("tag").textContent = `老板风格：${prof().style} ｜ 访谈原话：「${prof().quote.join("」「")}」`;
+  const s = spent();
+  document.getElementById("budgetText").textContent = `${s} / ${BUDGET}`;
+  const f = document.getElementById("budgetFill");
+  f.style.width = Math.min(100, s / BUDGET * 100) + "%";
+  f.classList.toggle("over", s > BUDGET);
+  document.getElementById("main").innerHTML = VIEWS[tab]();
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
+}
+
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => { tab = b.dataset.tab; render(); });
+roster = recommend();
+render();
+</script>
+</body>
+</html>
