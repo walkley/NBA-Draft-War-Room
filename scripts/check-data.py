@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""校验数据目录里的 data.js 与 headshots/ 是否符合 DATA.md 的格式。
+"""校验数据目录里的 data.js 与 headshots/ 是否符合 README.md 的格式。
 
 用法：python3 scripts/check-data.py [数据目录]
 不给目录时依次查找 $NBA_WARROOM_DATA、~/nba-warroom/data/、本 skill 的 template/。
@@ -41,7 +41,7 @@ def load(text, name):
 def main():
     src = TEMPLATE / "data.js"
     if not src.exists():
-        print(f"缺少 {src}，请按 DATA.md 准备数据。")
+        print(f"缺少 {src}，请按 README.md 准备数据。")
         return 1
     text = src.read_text(encoding="utf-8")
     errors, warns = [], []

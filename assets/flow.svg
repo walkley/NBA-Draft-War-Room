@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1190" height="660" viewBox="0 0 1190 660" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#fbbf24"/></marker>
+    <marker id="up" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#60a5fa"/></marker>
+  </defs>
+
+  <rect width="1190" height="660" fill="#0b1220"/>
+
+  <!-- 标题 -->
+  <text x="20" y="40" font-size="22" font-weight="700" fill="#f9fafb">NBA 选秀作战室：CXO 与 Agent 的 60 分钟</text>
+  <text x="20" y="66" font-size="13" fill="#9ca3af">CXO 不写代码。他回答问题、审核三次、在取舍上拍板，其余交给 Kiro 的数字分身。开场 0-5 分钟介绍规则，图中从第 5 分钟开始。</text>
+
+  <!-- 时间轴 -->
+  <rect x="150" y="84" width="1020" height="38" rx="6" fill="#111827"/>
+  <g font-size="14" font-weight="700" fill="#f3f4f6" text-anchor="middle">
+    <text x="235" y="101">访谈</text><text x="405" y="101">风格档案</text><text x="575" y="101">需求</text>
+    <text x="745" y="101">开发</text><text x="915" y="101">验收</text><text x="1085" y="101">投屏与收尾</text>
+  </g>
+  <g font-size="11" fill="#6b7280" text-anchor="middle">
+    <text x="235" y="116">5-15 分钟</text><text x="405" y="116">15-20 分钟</text><text x="575" y="116">20-25 分钟</text>
+    <text x="745" y="116">25-45 分钟</text><text x="915" y="116">45-52 分钟</text><text x="1085" y="116">52-60 分钟</text>
+  </g>
+
+  <!-- 泳道 -->
+  <rect x="10" y="128" width="1170" height="164" rx="10" fill="#141d30"/>
+  <rect x="10" y="362" width="1170" height="214" rx="10" fill="#0f1b2d"/>
+  <text x="24" y="200" font-size="20" font-weight="700" fill="#fbbf24">CXO</text>
+  <text x="24" y="222" font-size="12" fill="#9ca3af">扮演球队老板</text>
+  <text x="24" y="440" font-size="20" font-weight="700" fill="#60a5fa">Kiro</text>
+  <text x="24" y="462" font-size="12" fill="#9ca3af">数字分身</text>
+
+  <!-- CXO 卡片 -->
+  <g font-size="13" fill="#9ca3af">
+    <rect x="160" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#2c3b5a"/>
+    <text x="172" y="170" font-size="16" font-weight="700" fill="#f3f4f6">选球队 + 8 题</text>
+    <text x="172" y="196">以点选为主</text><text x="172" y="216">如：预算有限时</text><text x="172" y="236">你会怎么分配？</text>
+
+    <rect x="330" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#fbbf24" stroke-width="2"/>
+    <rect x="342" y="150" width="58" height="20" rx="10" fill="#fbbf24"/><text x="371" y="164" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">审核 ①</text>
+    <text x="342" y="194" font-size="16" font-weight="700" fill="#f3f4f6">这像我吗？</text>
+    <text x="342" y="218">看分身找出的</text><text x="342" y="238">偏好冲突，拍板</text>
+
+    <rect x="500" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#fbbf24" stroke-width="2"/>
+    <rect x="512" y="150" width="58" height="20" rx="10" fill="#fbbf24"/><text x="541" y="164" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">审核 ②</text>
+    <text x="512" y="194" font-size="16" font-weight="700" fill="#f3f4f6">是我要的吗？</text>
+    <text x="512" y="218">看评分规则、</text><text x="512" y="238">预算和排除条件</text><text x="512" y="258">不对就打回</text>
+
+    <rect x="670" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#2c3b5a"/>
+    <text x="682" y="170" font-size="16" font-weight="700" fill="#f3f4f6">拍板 0-2 次</text>
+    <text x="682" y="196">如：预算超了，</text><text x="682" y="216">先减谁？</text><text x="682" y="236">其余时间看</text><text x="682" y="256">Agent 干活</text>
+
+    <rect x="840" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#fbbf24" stroke-width="2"/>
+    <rect x="852" y="150" width="58" height="20" rx="10" fill="#fbbf24"/><text x="881" y="164" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">审核 ③</text>
+    <text x="852" y="194" font-size="16" font-weight="700" fill="#f3f4f6">能帮我决策吗？</text>
+    <text x="852" y="218">试用成品，</text><text x="852" y="238">提修改意见</text>
+
+    <rect x="1010" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#2c3b5a"/>
+    <text x="1022" y="170" font-size="16" font-weight="700" fill="#f3f4f6">投屏对比</text>
+    <text x="1022" y="196">三间点评，</text><text x="1022" y="216">可选投票</text><text x="1022" y="236">不评高低</text>
+  </g>
+
+  <!-- 交互箭头：金色向下为 CXO 的回答与判断，蓝色向上为 Agent 的提问与交付 -->
+  <g stroke-width="2.5" fill="none">
+    <g stroke="#fbbf24" marker-end="url(#down)">
+      <line x1="222" y1="286" x2="222" y2="364"/><line x1="392" y1="286" x2="392" y2="364"/><line x1="562" y1="286" x2="562" y2="364"/>
+      <line x1="732" y1="286" x2="732" y2="364"/><line x1="902" y1="286" x2="902" y2="364"/>
+    </g>
+    <g stroke="#60a5fa" marker-end="url(#up)">
+      <line x1="268" y1="368" x2="268" y2="290"/><line x1="438" y1="368" x2="438" y2="290"/><line x1="608" y1="368" x2="608" y2="290"/>
+      <line x1="778" y1="368" x2="778" y2="290"/><line x1="948" y1="368" x2="948" y2="290"/><line x1="1085" y1="368" x2="1085" y2="290"/>
+    </g>
+  </g>
+
+  <!-- Agent 卡片 -->
+  <g font-size="13" fill="#9ca3af">
+    <rect x="160" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#1e3a5f"/>
+    <text x="172" y="402" font-size="16" font-weight="700" fill="#f3f4f6">发题卡片</text>
+    <text x="172" y="428">对含糊的回答</text><text x="172" y="448">追问一次</text>
+
+    <rect x="330" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#1e3a5f"/>
+    <text x="342" y="402" font-size="16" font-weight="700" fill="#f3f4f6">写风格档案</text>
+    <text x="342" y="428">按档案试算一次</text><text x="342" y="448">推荐，把偏好之</text><text x="342" y="468">间的冲突摆出来</text>
+
+    <rect x="500" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#1e3a5f"/>
+    <text x="512" y="402" font-size="16" font-weight="700" fill="#f3f4f6">写需求文档</text>
+    <text x="512" y="428">把档案翻译成</text><text x="512" y="448">评分和选人规则</text><text x="512" y="468">数据做不到的</text><text x="512" y="488">先说明</text>
+
+    <rect x="670" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="682" y="402" font-size="16" font-weight="700" fill="#f3f4f6">Agent 搭建系统</text>
+    <text x="682" y="428">写选人规则和</text><text x="682" y="448">老板首页</text><text x="682" y="468">自查四个页面</text>
+
+    <rect x="840" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#1e3a5f"/>
+    <text x="852" y="402" font-size="16" font-weight="700" fill="#f3f4f6">按意见修改</text>
+    <text x="852" y="428">最多两轮，</text><text x="852" y="448">改动有代价时</text><text x="852" y="468">先讲清楚</text>
+
+    <rect x="1010" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#1e3a5f"/>
+    <text x="1022" y="402" font-size="16" font-weight="700" fill="#f3f4f6">交付成品</text>
+    <text x="1022" y="428">作战室保存在</text><text x="1022" y="448">本机，供投屏</text><text x="1022" y="468">展示</text>
+  </g>
+
+  <!-- 每步产出 -->
+  <g font-size="12" fill="#a7f3d0" text-anchor="middle">
+    <rect x="175" y="536" width="120" height="26" rx="13" fill="#064e3b"/><text x="235" y="554">产出：访谈记录</text>
+    <rect x="345" y="536" width="120" height="26" rx="13" fill="#064e3b"/><text x="405" y="554">产出：风格档案</text>
+    <rect x="515" y="536" width="120" height="26" rx="13" fill="#064e3b"/><text x="575" y="554">产出：需求文档</text>
+    <rect x="685" y="536" width="120" height="26" rx="13" fill="#064e3b"/><text x="745" y="554">产出：系统初版</text>
+    <rect x="855" y="536" width="120" height="26" rx="13" fill="#064e3b"/><text x="915" y="554">产出：系统终版</text>
+    <rect x="1010" y="536" width="150" height="26" rx="13" fill="#064e3b"/><text x="1085" y="553" font-size="11">产出：各间作战室并排展示</text>
+  </g>
+
+  <!-- 图例 -->
+  <g font-size="13" fill="#d1d5db">
+    <line x1="24" y1="614" x2="60" y2="614" stroke="#fbbf24" stroke-width="2.5"/><text x="70" y="619">CXO 的回答与判断</text>
+    <line x1="240" y1="614" x2="276" y2="614" stroke="#60a5fa" stroke-width="2.5"/><text x="286" y="619">Agent 的提问与交付</text>
+    <rect x="460" y="604" width="36" height="20" rx="4" fill="none" stroke="#fbbf24" stroke-width="2"/><text x="506" y="619">审核节点：CXO 确认后，流程才进入下一步</text>
+  </g>
+  <text x="24" y="644" font-size="11" fill="#6b7280">数据：NBA.com Inside the Game（由 AWS 提供技术支持），2025-26 赛季 234 名球员，已提前下载到本地。</text>
+</svg>

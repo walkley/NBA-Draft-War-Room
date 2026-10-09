@@ -82,6 +82,6 @@ CXO 试用后提出修改意见，按意见修改，最多两轮。
 
 ## 数据
 
-数据和头像不随代码分发，由使用者自行准备。默认放在 `~/nba-warroom/data/`（内含 `data.js` 和 `headshots/`），也可用环境变量 `NBA_WARROOM_DATA` 指定其他目录。格式见 `DATA.md`，可用 `python3 <本 skill 目录>/scripts/check-data.py` 校验。
+数据和头像不随代码分发，由使用者自行准备。默认放在 `~/nba-warroom/data/`（内含 `data.js` 和 `headshots/`），也可用环境变量 `NBA_WARROOM_DATA` 指定其他目录。格式见 `README.md` 的「准备数据」一节，可用 `python3 <本 skill 目录>/scripts/check-data.py` 校验。
 
 找不到数据时，建房脚本改用 `template/data.sample.js` 里的 40 名虚构球员，并打印一行提示。出现这行提示时，先告诉现场支持人员「当前是示例数据」，再继续第 1 步。

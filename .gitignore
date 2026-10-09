@@ -1,3 +1,4 @@
-# 数据和头像由使用者自行准备，不进仓库（见 DATA.md）
+# 数据和头像由使用者自行准备，不进仓库（见 README.md）
 template/data.js
 template/headshots/
+__pycache__/

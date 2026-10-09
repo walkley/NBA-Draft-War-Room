@@ -7,7 +7,7 @@
 #   2. ~/nba-warroom/data/
 #   3. 本 skill 的 template/（本地开发时的旧位置）
 # 都没有时使用 template/data.sample.js 的虚构示例数据，并给出提示。
-# 数据目录内放 data.js 和 headshots/<id>.png，格式见 DATA.md。
+# 数据目录内放 data.js 和 headshots/<id>.png，格式见 README.md。
 set -euo pipefail
 
 SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -24,7 +24,7 @@ done
 if [ -n "$DATA_DIR" ]; then
   python3 "$SKILL_DIR/scripts/check-data.py" "$DATA_DIR"
 else
-  echo "提示：未找到数据，使用虚构示例数据。正式使用请按 DATA.md 把数据放到 ~/nba-warroom/data/。" >&2
+  echo "提示：未找到数据，使用虚构示例数据。正式使用请按 README.md 把数据放到 ~/nba-warroom/data/。" >&2
 fi
 
 if [ -e "$ROOM" ]; then
