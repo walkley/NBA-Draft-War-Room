@@ -52,7 +52,7 @@
   .split { display: grid; grid-template-columns: minmax(280px, 1fr) 1fr; gap: 16px; align-items: start; }
   @media (max-width: 720px) { .split { grid-template-columns: 1fr; } }
   .ai { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 14px; line-height: 1.7; }
-  .ai::before { content: "分身建议"; display: block; font-size: 12px; color: #fbbf24; margin-bottom: 4px; }
+  .ai::before { content: "Agent 建议"; display: block; font-size: 12px; color: #fbbf24; margin-bottom: 4px; }
   .legend { display: flex; gap: 14px; font-size: 12px; color: #9ca3af; margin-top: 6px; justify-content: center; }
   .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
 </style>
@@ -71,7 +71,7 @@
 </header>
 
 <nav>
-  <button data-tab="home" class="on">老板首页</button>
+  <button data-tab="home" class="on">总览</button>
   <button data-tab="pool">人才库</button>
   <button data-tab="pick">选人台</button>
   <button data-tab="report">阵容报告</button>
@@ -83,7 +83,7 @@
 const BUDGET = 100, ROSTER = 8;
 const DIM_KEYS = Object.keys(DIMS);
 
-// 老板配置和首页由 boss.js 提供（现场开发的内容），缺失时显示占位
+// 选人规则和首页由 boss.js 提供（现场开发的内容），缺失时显示占位
 const BOSS = window.BOSS || { team: "我的球队", style: "待定", quote: ["待定"], w: { score: 1 }, big: {}, cap: 99 };
 
 let tab = "home", roster = [], filter = "全部";
@@ -95,7 +95,7 @@ const score = p => {
 };
 const spent = () => roster.reduce((s, id) => s + byId(id).c, 0);
 
-// 按老板风格推荐：先按评分选两名核心（满足 core 条件），再按评分补齐阵容；
+// 按管理风格推荐：先按评分选两名核心（满足 core 条件），再按评分补齐阵容；
 // 受单人薪资上限约束，排除 exclude 命中的球员，并给剩余名额留出最低薪资
 const isCore = p => typeof prof().core === "function" ? !!prof().core(p) : true;
 const excluded = p => typeof prof().exclude === "function" && !!prof().exclude(p);
@@ -159,7 +159,7 @@ function playerCard(p, withReason) {
       <div class="score">${score(p)}</div></div>
     <div class="body">${radar([{ v: p.pr, color: "#60a5fa" }], 130)}${chips(p)}</div>
     ${withReason ? `<div class="reason">${reason(p)}</div>` : ""}
-    <div class="row"><span class="sub">分身评分 ${score(p)}</span>
+    <div class="row"><span class="sub">评分 ${score(p)}</span>
       <button class="btn ${inR ? "ghost" : ""}" onclick="toggle(${p.id})">${inR ? "移出阵容" : "选入阵容"}</button></div>
   </div>`;
 }
@@ -233,7 +233,7 @@ const CTX = {
   get roster() { return team().sort((a, b) => score(b) - score(a)); },
   get profile() { return teamProfile(); },
   get spent() { return spent(); },
-  // 核心：老板设了 core 条件时，取阵容中满足条件、评分最高的两人（与 recommend() 选核心同一口径，
+  // 核心：参与者设了 core 条件时，取阵容中满足条件、评分最高的两人（与 recommend() 选核心同一口径，
   // 推荐阵容下即为 recommend() 选出的两名核心）；未设条件或无人满足时为空数组
   get core() { return typeof prof().core === "function" ? team().filter(isCore).sort((a, b) => score(b) - score(a)).slice(0, 2) : []; },
   BUDGET, ROSTER, DIMS, DIM_KEYS, LEAGUE, PLAYERS,
@@ -242,7 +242,7 @@ const CTX = {
 
 function render() {
   document.getElementById("title").textContent = `${prof().team} · NBA 选秀作战室`;
-  document.getElementById("tag").textContent = `老板风格：${prof().style} ｜ 访谈原话：「${prof().quote.join("」「")}」`;
+  document.getElementById("tag").textContent = `管理风格：${prof().style} ｜ 访谈原话：「${prof().quote.join("」「")}」`;
   const s = spent();
   document.getElementById("budgetText").textContent = `${s} / ${BUDGET}`;
   const f = document.getElementById("budgetFill");

@@ -7,8 +7,8 @@
   <rect width="1190" height="660" fill="#0b1220"/>
 
   <!-- 标题 -->
-  <text x="20" y="40" font-size="22" font-weight="700" fill="#f9fafb">NBA 选秀作战室：CXO 与 Agent 的 60 分钟</text>
-  <text x="20" y="66" font-size="13" fill="#9ca3af">CXO 不写代码。他回答问题、审核三次、在取舍上拍板，其余交给 Kiro 的数字分身。开场 0-5 分钟介绍规则，图中从第 5 分钟开始。</text>
+  <text x="20" y="40" font-size="22" font-weight="700" fill="#f9fafb">NBA 选秀作战室：参与者与 Agent 的 60 分钟</text>
+  <text x="20" y="66" font-size="13" fill="#9ca3af">参与者不写代码。他回答问题、审核三次、在取舍上拍板，其余交给 Kiro Agent。开场 0-5 分钟介绍规则，图中从第 5 分钟开始。</text>
 
   <!-- 时间轴 -->
   <rect x="150" y="84" width="1020" height="38" rx="6" fill="#111827"/>
@@ -24,12 +24,12 @@
   <!-- 泳道 -->
   <rect x="10" y="128" width="1170" height="164" rx="10" fill="#141d30"/>
   <rect x="10" y="362" width="1170" height="214" rx="10" fill="#0f1b2d"/>
-  <text x="24" y="200" font-size="20" font-weight="700" fill="#fbbf24">CXO</text>
-  <text x="24" y="222" font-size="12" fill="#9ca3af">扮演球队老板</text>
+  <text x="24" y="200" font-size="20" font-weight="700" fill="#fbbf24">参与者</text>
+  <text x="24" y="222" font-size="12" fill="#9ca3af">扮演球队总经理</text>
   <text x="24" y="440" font-size="20" font-weight="700" fill="#60a5fa">Kiro</text>
-  <text x="24" y="462" font-size="12" fill="#9ca3af">数字分身</text>
+  <text x="24" y="462" font-size="12" fill="#9ca3af">Agent</text>
 
-  <!-- CXO 卡片 -->
+  <!-- 参与者卡片 -->
   <g font-size="13" fill="#9ca3af">
     <rect x="160" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#2c3b5a"/>
     <text x="172" y="170" font-size="16" font-weight="700" fill="#f3f4f6">选球队 + 8 题</text>
@@ -38,7 +38,7 @@
     <rect x="330" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#fbbf24" stroke-width="2"/>
     <rect x="342" y="150" width="58" height="20" rx="10" fill="#fbbf24"/><text x="371" y="164" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">审核 ①</text>
     <text x="342" y="194" font-size="16" font-weight="700" fill="#f3f4f6">这像我吗？</text>
-    <text x="342" y="218">看分身找出的</text><text x="342" y="238">偏好冲突，拍板</text>
+    <text x="342" y="218">看 Agent 找出的</text><text x="342" y="238">偏好冲突，拍板</text>
 
     <rect x="500" y="140" width="150" height="140" rx="8" fill="#1b2740" stroke="#fbbf24" stroke-width="2"/>
     <rect x="512" y="150" width="58" height="20" rx="10" fill="#fbbf24"/><text x="541" y="164" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">审核 ②</text>
@@ -59,7 +59,7 @@
     <text x="1022" y="196">三间点评，</text><text x="1022" y="216">可选投票</text><text x="1022" y="236">不评高低</text>
   </g>
 
-  <!-- 交互箭头：金色向下为 CXO 的回答与判断，蓝色向上为 Agent 的提问与交付 -->
+  <!-- 交互箭头：金色向下为参与者的回答与判断，蓝色向上为 Agent 的提问与交付 -->
   <g stroke-width="2.5" fill="none">
     <g stroke="#fbbf24" marker-end="url(#down)">
       <line x1="222" y1="286" x2="222" y2="364"/><line x1="392" y1="286" x2="392" y2="364"/><line x1="562" y1="286" x2="562" y2="364"/>
@@ -87,7 +87,7 @@
 
     <rect x="670" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#60a5fa" stroke-width="1.5"/>
     <text x="682" y="402" font-size="16" font-weight="700" fill="#f3f4f6">Agent 搭建系统</text>
-    <text x="682" y="428">写选人规则和</text><text x="682" y="448">老板首页</text><text x="682" y="468">自查四个页面</text>
+    <text x="682" y="428">写选人规则</text><text x="682" y="448">和总览页</text><text x="682" y="468">自查四个页面</text>
 
     <rect x="840" y="374" width="150" height="150" rx="8" fill="#16243a" stroke="#1e3a5f"/>
     <text x="852" y="402" font-size="16" font-weight="700" fill="#f3f4f6">按意见修改</text>
@@ -110,9 +110,9 @@
 
   <!-- 图例 -->
   <g font-size="13" fill="#d1d5db">
-    <line x1="24" y1="614" x2="60" y2="614" stroke="#fbbf24" stroke-width="2.5"/><text x="70" y="619">CXO 的回答与判断</text>
+    <line x1="24" y1="614" x2="60" y2="614" stroke="#fbbf24" stroke-width="2.5"/><text x="70" y="619">参与者的回答与判断</text>
     <line x1="240" y1="614" x2="276" y2="614" stroke="#60a5fa" stroke-width="2.5"/><text x="286" y="619">Agent 的提问与交付</text>
-    <rect x="460" y="604" width="36" height="20" rx="4" fill="none" stroke="#fbbf24" stroke-width="2"/><text x="506" y="619">审核节点：CXO 确认后，流程才进入下一步</text>
+    <rect x="460" y="604" width="36" height="20" rx="4" fill="none" stroke="#fbbf24" stroke-width="2"/><text x="506" y="619">审核节点：参与者确认后，流程才进入下一步</text>
   </g>
   <text x="24" y="644" font-size="11" fill="#6b7280">数据：NBA.com Inside the Game（由 AWS 提供技术支持），2025-26 赛季 234 名球员，已提前下载到本地。</text>
 </svg>
