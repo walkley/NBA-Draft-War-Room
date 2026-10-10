@@ -1,1 +1,3 @@
 __pycache__/
+# 本地头像（可选，见 README）不进仓库
+template/headshots/

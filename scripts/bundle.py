@@ -4,8 +4,9 @@
 用法：python3 bundle.py <warroom 目录>
 输出：<warroom 目录>/作战室.html
 
-index.html 用 <script src> 引用 data.js 和 boss.js，头像是 headshots/ 下的相对路径。
-打包后脚本和头像都内联在一个文件里，可以单独拷贝（如 AirDrop 到投屏主控机），用默认浏览器打开。
+index.html 用 <script src> 引用 data.js 和 boss.js，打包后脚本都内联在一个文件里，可以单独拷贝（如 AirDrop 到投屏主控机），用默认浏览器打开。
+头像默认是 NBA CDN 的在线地址，保持外链不内联，打开时需要联网。
+如果作战室目录下有 headshots/<id>.png（使用者自备的本地头像），会压缩后内联进文件，断网也能显示。
 dashboard 右侧面板预览 HTML 时禁用脚本，作战室在面板里只会显示空白，不要用面板打开。
 """
 import base64
@@ -17,7 +18,7 @@ import tempfile
 from pathlib import Path
 
 
-#: 单文件体积上限。原尺寸头像内联后约 6.5MB，打包时压成 160px 宽的 JPEG，整页约 2MB，便于拷贝。
+#: 单文件体积提醒线。只在内联本地头像时有意义：原尺寸内联约 6.5MB，压成 160px 宽的 JPEG 后整页约 2MB。
 LIMIT = 4 * 1024 * 1024
 MARGIN = 3_800_000
 

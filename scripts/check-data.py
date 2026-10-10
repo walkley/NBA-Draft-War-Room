@@ -57,7 +57,7 @@ def main():
     if len(players) < 30:
         errors.append(f"只有 {len(players)} 名球员，至少需要 30 名才能组出有取舍的阵容")
 
-    seen, no_img = set(), 0
+    seen, no_img, remote = set(), 0, 0
     missing_opt = {k: 0 for k in OPTIONAL}
     for i, p in enumerate(players):
         tag = f"第 {i + 1} 名（{p.get('n', '?')}）"
@@ -80,10 +80,10 @@ def main():
         if p.get("big") and p["big"] not in BIGS:
             errors.append(f"{tag} big 取值无效：{p['big']}")
         img = p.get("img") or ""
-        if img.startswith("http"):
-            warns.append(f"{tag} 头像是外链，现场不联网时无法显示")
+        if img.startswith("https://"):
+            remote += 1
         elif img and img != f"headshots/{p.get('id')}.png":
-            errors.append(f"{tag} img 必须是 headshots/{p.get('id')}.png，实际为 {img}")
+            errors.append(f"{tag} img 必须是 https:// 地址或 headshots/{p.get('id')}.png，实际为 {img}")
         elif img and not (TEMPLATE / img).exists():
             no_img += 1
         for k in OPTIONAL:
@@ -97,6 +97,8 @@ def main():
     elif sum(cheap[:8]) > 100:
         warns.append("薪资不超过 14 的球员中最便宜的 8 人合计超过 100，cap=14 时组不满 8 人")
 
+    if remote:
+        warns.append(f"{remote} 名球员的头像是在线地址，需要联网才能显示，加载失败时显示灰色占位")
     if no_img:
         warns.append(f"{no_img} 名球员的头像文件不存在，将显示灰色占位")
     for k, n in missing_opt.items():

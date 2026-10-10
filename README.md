@@ -14,24 +14,25 @@
 git clone git@github.com:walkley/NBA-Draft-War-Room.git ~/.kiro/crew/skills/nba-draft-warroom
 ```
 
-更新时在该目录里运行 `git pull`。Discover 导入用不了：它只能读公开仓库，而且单个 skill 最多 50 个文件，头像就有 234 张。
+更新时在该目录里运行 `git pull`。Discover 导入只能读公开仓库，仓库改回公开之前用不了。
 
 运行要求：
 
-- macOS。打包脚本用系统自带的 `sips` 压缩头像。
+- macOS。
+- 能上网。头像直接从 NBA 的 CDN 加载，断网时显示灰色占位，其他功能不受影响。
 - Python 3 和 Node.js。
 - 建议在设置里开启 YOLO 模式，不然每一步操作都会弹出确认框。
 
 ## 准备数据
 
-仓库自带 2025-26 赛季 234 名球员的数据和头像（`template/data.js`、`template/headshots/`），克隆下来就能用，不用另外准备。
+仓库自带 2025-26 赛季 234 名球员的数据（`template/data.js`），头像用 NBA CDN 的在线地址，克隆下来就能用，不用另外准备。
 
 要换成别的数据，按下面的格式放到 `~/nba-warroom/data/`，或者放在其他目录，用环境变量 `NBA_WARROOM_DATA` 指向它。建房时会优先用这两处的数据，找不到再用仓库自带的：
 
 ```
 ~/nba-warroom/data/
 ├── data.js           球员数据
-└── headshots/        头像，文件名为 <id>.png，可以不放，卡片会显示灰色占位
+└── headshots/        可选。本地头像，文件名为 <id>.png，img 写成 headshots/<id>.png 时使用，打包时会内联进作战室，断网也能显示
 ```
 
 准备好后运行校验：
@@ -54,7 +55,7 @@ window.PLAYERS = [
    "age": 41, "yr": 23, "fame": "全明星", "pts": 20.9, "reb": 6.1, "ast": 7.2,
    "c": 25, "o": 86,
    "pr": {"score": 57, "create": 94, "rebound": 79, "defense": 83, "steady": 7, "gravity": 76},
-   "role": "内线进攻", "big": "季后赛下滑", "img": "headshots/2544.png"}
+   "role": "内线进攻", "big": "季后赛下滑", "img": "https://cdn.nba.com/headshots/nba/latest/260x190/2544.png"}
 ];
 ```
 
@@ -69,7 +70,7 @@ window.PLAYERS = [
 | `pr` | 六维画像 | 六个键齐全，每项 0-100 的联盟百分位 | 是 |
 | `role` | 角色 | `外线持球` `外线空间` `内线进攻` `内线接应` | 是 |
 | `big` | 大场面标签 | `季后赛更强` `季后赛下滑` `季后赛稳定` `未进季后赛` | 是 |
-| `img` | 头像路径 | `headshots/<id>.png` | 是 |
+| `img` | 头像地址 | `https://...` 在线地址，或本地的 `headshots/<id>.png` | 是 |
 | `en` | 英文名 | 字符串 | 否 |
 | `age` | 年龄 | 整数 | 否，缺了「留年轻人」这类要求做不到 |
 | `yr` | 本赛季是第几个 NBA 赛季 | 整数，1 为新秀 | 否，同上 |
@@ -124,12 +125,14 @@ Agent 会在 `~/nba-warroom/room-<时间戳>/` 新建一间作战室，按 `SKIL
 | 浏览器没有自动打开，或者页面被关掉了 | 请 Agent 再打开一次，或在 Finder 里进入 `~/nba-warroom/room-<时间戳>/warroom/`，双击 `作战室.html` |
 | 点了对话里的文件链接，右侧面板一片空白 | 正常现象。右侧面板不运行页面脚本，请看浏览器里的页面 |
 | 页面打开了，但没有数据 | 打开的是 `index.html`，或者改完配置后没重新打包。请 Agent 重新打包再打开 |
+| 头像全是灰色方块 | 这台电脑没联网，或访问不了 `cdn.nba.com`。不影响使用，联网后刷新页面即可 |
 | 有人问薪资是不是真的 | 不是。薪资按场均得分折算，用来制造预算上的取舍 |
 
 ## 已知限制
 
 - 数据是固定的快照，不会自动更新。
 - 薪资是模拟值。
+- 头像依赖 NBA 的 CDN，需要联网；如果 NBA 改了地址，头像会显示成灰色占位。
 - 成品只能在电脑上用浏览器打开，不能在 Kiro Crew 的右侧面板里显示，也还不能扫码在手机上打开。
 
 ## 目录
@@ -138,6 +141,6 @@ Agent 会在 `~/nba-warroom/room-<时间戳>/` 新建一间作战室，按 `SKIL
 |---|---|
 | `SKILL.md` | 给 Agent 的流程指令 |
 | `interview.md` | 访谈题目，以及每个选项对应的配置 |
-| `template/` | 作战室网页骨架、开发说明、234 名球员数据（`data.js`）、头像（`headshots/`）、虚构示例数据 |
+| `template/` | 作战室网页骨架、开发说明、234 名球员数据（`data.js`）、虚构示例数据 |
 | `scripts/` | 建房、数据校验、试算、打包脚本 |
 | `assets/` | README 用到的图 |
