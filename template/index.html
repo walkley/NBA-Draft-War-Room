@@ -4,18 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NBA 选秀作战室</title>
-<script>
-// 头像是在线地址。加载失败（断网、地址失效）时换成透明图，只留下 img 的灰色底，页面其他部分照常显示。
-// 用捕获阶段监听整个页面，boss.js 里自己写的 <img> 也能覆盖到。
-document.addEventListener("error", function (e) {
-  var el = e.target;
-  if (el && el.tagName === "IMG" && !el.dataset.fallback) {
-    el.dataset.fallback = "1";
-    el.style.background = el.style.background || "#1f2937";
-    el.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-  }
-}, true);
-</script>
 <script src="data.js"></script>
 <script src="boss.js"></script>
 <style>
@@ -92,6 +80,16 @@ document.addEventListener("error", function (e) {
 <main id="main"></main>
 
 <script>
+// 头像是在线地址。加载失败（断网、地址失效）时换成透明图，只留下 img 的灰色底，页面其他部分照常显示。
+// 用捕获阶段监听整个页面，boss.js 里自己写的 <img> 也能覆盖到。
+if (document.addEventListener) document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG" && !el.dataset.fallback) {
+    el.dataset.fallback = "1";
+    el.style.background = el.style.background || "#1f2937";
+    el.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+  }
+}, true);
 const BUDGET = 100, ROSTER = 8;
 const DIM_KEYS = Object.keys(DIMS);
 
