@@ -8,13 +8,7 @@
 
 ## 安装
 
-仓库是私有的，用有权限的 GitHub 账号克隆到 skill 目录：
-
-```
-git clone git@github.com:walkley/NBA-Draft-War-Room.git ~/.kiro/crew/skills/nba-draft-warroom
-```
-
-更新时在该目录里运行 `git pull`。Discover 导入只能读公开仓库，仓库改回公开之前用不了。
+在 Kiro Crew 的 Settings -> Skills -> Discover 里填 `walkley/NBA-Draft-War-Room`，预览后点安装。导入的内容固定在导入时的那个 commit，仓库更新后要重新导入一次。导入后的目录名带哈希后缀（如 `nba-draft-war-room-c3f9d813164a`），不影响使用。
 
 运行要求：
 
@@ -25,20 +19,14 @@ git clone git@github.com:walkley/NBA-Draft-War-Room.git ~/.kiro/crew/skills/nba-
 
 ## 准备数据
 
-仓库自带 2025-26 赛季 234 名球员的数据（`template/data.js`），头像用 NBA CDN 的在线地址，克隆下来就能用，不用另外准备。
+仓库自带 2025-26 赛季 234 名球员的数据（`template/data.js`），头像用 NBA CDN 的在线地址，导入后就能用，不用另外准备。
 
-要换成别的数据，按下面的格式放到 `~/nba-warroom/data/`，或者放在其他目录，用环境变量 `NBA_WARROOM_DATA` 指向它。建房时会优先用这两处的数据，找不到再用仓库自带的：
-
-```
-~/nba-warroom/data/
-├── data.js           球员数据
-└── headshots/        可选。本地头像，文件名为 <id>.png，img 写成 headshots/<id>.png 时使用
-```
+要换成别的数据，把 `data.js` 放到 `~/nba-warroom/data/`，或者放在其他目录，用环境变量 `NBA_WARROOM_DATA` 指向它。建房时会优先用这两处的数据，找不到再用仓库自带的。
 
 准备好后运行校验：
 
 ```
-python3 ~/.kiro/crew/skills/nba-draft-warroom/scripts/check-data.py
+python3 ~/.kiro/crew/skills/nba-draft-war*/scripts/check-data.py
 ```
 
 `template/data.sample.js` 是 40 名虚构球员，只在自带数据也被删掉时才会用到。
@@ -70,7 +58,7 @@ window.PLAYERS = [
 | `pr` | 六维画像 | 六个键齐全，每项 0-100 的联盟百分位 | 是 |
 | `role` | 角色 | `外线持球` `外线空间` `内线进攻` `内线接应` | 是 |
 | `big` | 大场面标签 | `季后赛更强` `季后赛下滑` `季后赛稳定` `未进季后赛` | 是 |
-| `img` | 头像地址 | `https://...` 在线地址，或本地的 `headshots/<id>.png` | 是 |
+| `img` | 头像地址 | `https://...` 在线地址 | 是 |
 | `en` | 英文名 | 字符串 | 否 |
 | `age` | 年龄 | 整数 | 否，缺了「留年轻人」这类要求做不到 |
 | `yr` | 本赛季是第几个 NBA 赛季 | 整数，1 为新秀 | 否，同上 |

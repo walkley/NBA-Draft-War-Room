@@ -83,6 +83,6 @@ bash <本 skill 目录>/scripts/new-room.sh
 
 ## 数据
 
-本 skill 自带 234 名球员的数据，在 `template/data.js`。头像用 NBA CDN 的在线地址；加载不出来会显示灰色占位，不影响其他功能，不要为此改数据或改页面。使用者如果要换数据，放在 `~/nba-warroom/data/`（内含 `data.js`，可以带 `headshots/`），或用环境变量 `NBA_WARROOM_DATA` 指定其他目录，建房时优先使用。格式见 `README.md` 的「准备数据」一节，可用 `python3 <本 skill 目录>/scripts/check-data.py` 校验。
+本 skill 自带 234 名球员的数据，在 `template/data.js`。头像用 NBA CDN 的在线地址；加载不出来会显示灰色占位，不影响其他功能，不要为此改数据或改页面。使用者如果要换数据，放在 `~/nba-warroom/data/`（内含 `data.js`），或用环境变量 `NBA_WARROOM_DATA` 指定其他目录，建房时优先使用。格式见 `README.md` 的「准备数据」一节，可用 `python3 <本 skill 目录>/scripts/check-data.py` 校验。
 
 找不到数据时，建房脚本改用 `template/data.sample.js` 里的 40 名虚构球员，并打印一行提示。出现这行提示时，先告诉现场支持人员「当前是示例数据」，再继续第 1 步。
