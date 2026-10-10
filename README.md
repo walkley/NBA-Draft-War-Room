@@ -8,7 +8,7 @@
 
 ## 安装
 
-在 Kiro Crew 的 Settings -> Skills -> Discover 里填 `walkley/NBA-Draft-War-Room`，预览后点安装。导入的内容固定在导入时的那个 commit，仓库更新后要重新导入一次。导入后的目录名带哈希后缀（如 `nba-draft-war-room-c3f9d813164a`），不影响使用。
+在 Kiro Crew 的 代理能力 -> 技能 -> 添加技能 里填 `walkley/NBA-Draft-War-Room`，预览后点安装。导入的内容固定在导入时的那个 commit，仓库更新后要重新导入一次。导入后的目录名带哈希后缀（如 `nba-draft-war-room-c3f9d813164a`），不影响使用。
 
 运行要求：
 
