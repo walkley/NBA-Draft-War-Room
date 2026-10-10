@@ -98,7 +98,7 @@ def main():
         warns.append("薪资不超过 14 的球员中最便宜的 8 人合计超过 100，cap=14 时组不满 8 人")
 
     if remote:
-        warns.append(f"{remote} 名球员的头像是在线地址，需要联网才能显示，加载失败时显示灰色占位")
+        warns.append(f"{remote} 名球员的头像是在线地址，加载失败时显示灰色占位")
     if no_img:
         warns.append(f"{no_img} 名球员的头像文件不存在，将显示灰色占位")
     for k, n in missing_opt.items():

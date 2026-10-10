@@ -19,7 +19,7 @@ git clone git@github.com:walkley/NBA-Draft-War-Room.git ~/.kiro/crew/skills/nba-
 运行要求：
 
 - macOS。
-- 能上网。头像直接从 NBA 的 CDN 加载，断网时显示灰色占位，其他功能不受影响。
+- 能上网。头像直接从 NBA 的 CDN 加载。
 - Python 3 和 Node.js。
 - 建议在设置里开启 YOLO 模式，不然每一步操作都会弹出确认框。
 
@@ -32,7 +32,7 @@ git clone git@github.com:walkley/NBA-Draft-War-Room.git ~/.kiro/crew/skills/nba-
 ```
 ~/nba-warroom/data/
 ├── data.js           球员数据
-└── headshots/        可选。本地头像，文件名为 <id>.png，img 写成 headshots/<id>.png 时使用，打包时会内联进作战室，断网也能显示
+└── headshots/        可选。本地头像，文件名为 <id>.png，img 写成 headshots/<id>.png 时使用
 ```
 
 准备好后运行校验：
@@ -125,14 +125,14 @@ Agent 会在 `~/nba-warroom/room-<时间戳>/` 新建一间作战室，按 `SKIL
 | 浏览器没有自动打开，或者页面被关掉了 | 请 Agent 再打开一次，或在 Finder 里进入 `~/nba-warroom/room-<时间戳>/warroom/`，双击 `作战室.html` |
 | 点了对话里的文件链接，右侧面板一片空白 | 正常现象。右侧面板不运行页面脚本，请看浏览器里的页面 |
 | 页面打开了，但没有数据 | 打开的是 `index.html`，或者改完配置后没重新打包。请 Agent 重新打包再打开 |
-| 头像全是灰色方块 | 这台电脑没联网，或访问不了 `cdn.nba.com`。不影响使用，联网后刷新页面即可 |
+| 头像全是灰色方块 | 这台电脑访问不了 `cdn.nba.com`。不影响使用，换到能访问的网络后刷新页面即可 |
 | 有人问薪资是不是真的 | 不是。薪资按场均得分折算，用来制造预算上的取舍 |
 
 ## 已知限制
 
 - 数据是固定的快照，不会自动更新。
 - 薪资是模拟值。
-- 头像依赖 NBA 的 CDN，需要联网；如果 NBA 改了地址，头像会显示成灰色占位。
+- 头像依赖 NBA 的 CDN；如果 NBA 改了地址，头像会显示成灰色占位。
 - 成品只能在电脑上用浏览器打开，不能在 Kiro Crew 的右侧面板里显示，也还不能扫码在手机上打开。
 
 ## 目录
