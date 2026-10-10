@@ -5,7 +5,7 @@
 # 数据按以下顺序查找，用第一个存在 data.js 的目录：
 #   1. 环境变量 NBA_WARROOM_DATA 指定的目录
 #   2. ~/nba-warroom/data/
-#   3. 本 skill 的 template/（本地开发时的旧位置）
+#   3. 本 skill 自带的 template/data.js
 # 都没有时使用 template/data.sample.js 的虚构示例数据，并给出提示。
 # 数据目录内放 data.js 和 headshots/<id>.png，格式见 README.md。
 set -euo pipefail

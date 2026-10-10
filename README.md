@@ -8,7 +8,13 @@
 
 ## 安装
 
-在 Kiro Crew 里打开 **Settings → Skills → Discover**，输入 `walkley/NBA-Draft-War-Room`，预览后点安装。也可以把仓库克隆到 `~/.kiro/crew/skills/` 下，目录名随意。
+仓库是私有的，用有权限的 GitHub 账号克隆到 skill 目录：
+
+```
+git clone git@github.com:walkley/NBA-Draft-War-Room.git ~/.kiro/crew/skills/nba-draft-warroom
+```
+
+更新时在该目录里运行 `git pull`。Discover 导入用不了：它只能读公开仓库，而且单个 skill 最多 50 个文件，头像就有 234 张。
 
 运行要求：
 
@@ -18,7 +24,9 @@
 
 ## 准备数据
 
-仓库里不带球员数据和头像，需要自己准备，放到 `~/nba-warroom/data/`：
+仓库自带 2025-26 赛季 234 名球员的数据和头像（`template/data.js`、`template/headshots/`），克隆下来就能用，不用另外准备。
+
+要换成别的数据，按下面的格式放到 `~/nba-warroom/data/`，或者放在其他目录，用环境变量 `NBA_WARROOM_DATA` 指向它。建房时会优先用这两处的数据，找不到再用仓库自带的：
 
 ```
 ~/nba-warroom/data/
@@ -26,13 +34,13 @@
 └── headshots/        头像，文件名为 <id>.png，可以不放，卡片会显示灰色占位
 ```
 
-也可以放在其他目录，用环境变量 `NBA_WARROOM_DATA` 指向它。数据放在 skill 目录之外，重新导入或更新 skill 时不会被覆盖。准备好后运行校验：
+准备好后运行校验：
 
 ```
-python3 ~/.kiro/crew/skills/nba-draft-war*/scripts/check-data.py
+python3 ~/.kiro/crew/skills/nba-draft-warroom/scripts/check-data.py
 ```
 
-没有数据也能先体验：建房时会改用 `template/data.sample.js` 里的 40 名虚构球员。
+`template/data.sample.js` 是 40 名虚构球员，只在自带数据也被删掉时才会用到。
 
 ### data.js 格式
 
@@ -130,6 +138,6 @@ Agent 会在 `~/nba-warroom/room-<时间戳>/` 新建一间作战室，按 `SKIL
 |---|---|
 | `SKILL.md` | 给 Agent 的流程指令 |
 | `interview.md` | 访谈题目，以及每个选项对应的配置 |
-| `template/` | 作战室网页骨架、开发说明、示例数据 |
+| `template/` | 作战室网页骨架、开发说明、234 名球员数据（`data.js`）、头像（`headshots/`）、虚构示例数据 |
 | `scripts/` | 建房、数据校验、试算、打包脚本 |
 | `assets/` | README 用到的图 |
